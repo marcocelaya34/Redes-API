@@ -1,0 +1,23 @@
+{
+  "name": "redes-proyecto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "simple-ssh": "^1.0.0",
+    "socket.io": "^4.4.0",
+    "ssh2": "^1.5.0",
+    "xterm": "^4.15.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
