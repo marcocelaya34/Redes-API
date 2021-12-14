@@ -55,6 +55,6 @@ app.post("/", (req, res) => {
     .start();
 });
 
-app.listen(app.get("port"), () => {
+app.listen(app.get("port"),'0.0.0.0', () => {
   console.log(`Escuchando puerto ${app.get("port")}`);
 });
