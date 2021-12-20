@@ -5,6 +5,7 @@ let userSSH = "";
 let passwordSSH = "";
 let addressSSH = "";
 var cmdSSH = "";
+var sendRes = false;
 
 app.set("port", 3000);
 
@@ -41,20 +42,46 @@ app.post("/", (req, res) => {
 
   ssh
     .exec(cmdSSH, {
+      
       out: function (stdout) {
-        console.log("Valor: " + stdout);
-        res.send({ message: stdout });
+        console.log("Se recibio: " +cmdSSH );
+        if (!sendRes) {
+          console.log("Valor: " + stdout);
+          sendRes = true;
+          console.log('entro request');
+          res.send({ message: stdout,resp:sendRes  });
+        }else{
+          console.log("Ya se envio una respuesta (request)");
+          sendRes = false;
+        }     
       },
       err: function (stderr) {
-        console.log("Errores" + stderr);
+        console.log("Se recibio: " +cmdSSH );
+        if (!sendRes) {
+          console.log("Errores" + stderr);
+          console.log('entro error');
+         /*  res.send({ message: '',resp:sendRes  }); */
+        }else{
+          console.log("Ya se envio una respuesta (error)");
+          sendRes = false;
+        }   
+       
       },
       exit: function (code) {
-        console.log("Codigo" + code);
+        console.log("Se recibio: " +cmdSSH );
+        if (!sendRes) {
+          console.log("Codigo" + code);
+          console.log('entro salida');
+          res.send({ message: '' , resp:sendRes });  
+        }else{
+          console.log("Ya se envio una respuesta (salida)");
+          sendRes = false;
+        }           
       },
     })
     .start();
 });
 
-app.listen(app.get("port"), () => {
+app.listen(app.get("port"),'0.0.0.0', () => {
   console.log(`Escuchando puerto ${app.get("port")}`);
 });
